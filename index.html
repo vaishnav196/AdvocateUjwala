@@ -16,7 +16,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="CSS/Style.css">
 </head>
 
 <body>
@@ -154,7 +154,7 @@
                 <!-- FORM -->
                 <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0 animate-on-scroll fade-right">
                     <div class="contact-form-box">
-                        <form id="contactForm">
+                        <!-- <form id="contactForm">
                             <div class="floating-field">
                                 <input type="text" id="name" required>
                                 <label for="name">Your Name</label>
@@ -171,6 +171,30 @@
                                 <textarea rows="4" id="message" required></textarea>
                                 <label for="message">Message</label>
                             </div>
+                            <button type="submit" class="contact-btn">Send Message</button>
+                        </form> -->
+
+                        <form id="contactForm">
+                            <div class="floating-field">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+
+                            <div class="floating-field">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Your Email</label>
+                            </div>
+
+                            <div class="floating-field">
+                                <input type="text" id="subject" name="subject" required>
+                                <label for="subject">Subject</label>
+                            </div>
+
+                            <div class="floating-field">
+                                <textarea rows="4" id="message" name="message" required></textarea>
+                                <label for="message">Message</label>
+                            </div>
+
                             <button type="submit" class="contact-btn">Send Message</button>
                         </form>
                     </div>
@@ -221,7 +245,33 @@
     <footer class="bg-dark text-white text-center p-3">
         © 2025 Advocate Ujwala Sachin Auti
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init("qBAQpKMGx44QZ5McZ");
+        })();
 
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = this;
+
+            // 1️⃣ Send message to YOU
+            emailjs.sendForm("service_cesffcf", "template_p801ue9", form)
+                .then(function () {
+
+                    // 2️⃣ Send auto-reply to USER
+                    emailjs.sendForm("service_cesffcf", "template_mncvf27", form);
+
+                    alert("✅ Message sent successfully!");
+                    form.reset();
+
+                }, function (error) {
+                    alert("❌ Failed to send message");
+                    console.log(error);
+                });
+        });
+    </script>
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
